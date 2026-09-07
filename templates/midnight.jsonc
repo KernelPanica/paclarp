@@ -1,0 +1,40 @@
+{
+  // A calm, high-contrast cyan/green terminal theme.
+  "pacman": "/usr/bin/pacman",
+  "stdout": {
+    "prefix": "› ",
+    "suffix": "",
+    "color": "auto",
+    "text_color": "38;5;252",
+    "highlights": [
+      { "pattern": "^::", "color": "38;5;45;1" },
+      { "pattern": "^warning:", "color": "38;5;220;1" },
+      { "pattern": "^error:", "color": "38;5;203;1" }
+    ],
+    "progress": {
+      "enabled": true,
+      "width": 32,
+      "filled": "━",
+      "empty": "─",
+      "template": "◈ {bar} {percent}%"
+    },
+    "kitty": { "enabled": false, "frames": [], "interval_ms": 90, "width": 32, "height": 32 },
+    "rules": []
+  },
+  "stderr": {
+    "prefix": "! ",
+    "color": "auto",
+    "text_color": "38;5;203",
+    "rules": []
+  },
+  "ui": {
+    "style": "compact",
+    "verbosity": 1,
+    "animation": true,
+    "fps": 10,
+    "sound": false,
+    "spinner": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+    "operation_icons": { "download": "↓", "install": "+", "remove": "−" },
+    "theme": { "package": "38;5;45", "download": "38;5;39", "install": "38;5;84", "warning": "38;5;220;1", "error": "38;5;203;1", "border": "38;5;239", "status": "38;5;252" }
+  }
+}

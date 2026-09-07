@@ -1,0 +1,42 @@
+{
+  // Pink text, blue highlights, and an animated Unicode loading style.
+  "pacman": "/usr/bin/pacman",
+  "stdout": {
+    "prefix": "💗 ",
+    "suffix": "",
+    "color": "auto",
+    "text_color": "38;5;213",
+    "highlights": [
+      { "pattern": "^(::|warning:|error:)", "color": "38;5;75;1" }
+    ],
+    "progress": {
+      "enabled": true,
+      "width": 28,
+      "filled": "💙",
+      "empty": "▫",
+      "template": "✨ [{bar}] {percent}%"
+    },
+    "kitty": { "enabled": false, "frames": [], "interval_ms": 100, "width": 32, "height": 32 },
+    "rules": []
+  },
+  "stderr": {
+    "prefix": "💗 ",
+    "color": "auto",
+    "text_color": "38;5;213",
+    "highlights": [
+      { "pattern": "^warning:", "color": "38;5;75;1" },
+      { "pattern": "^error:", "color": "38;5;39;1" }
+    ],
+    "rules": []
+  },
+  "ui": {
+    "style": "verbose",
+    "verbosity": 2,
+    "animation": true,
+    "fps": 12,
+    "sound": false,
+    "spinner": ["💗", "💖", "💙", "💫"],
+    "operation_icons": { "download": "⇣", "install": "✦", "remove": "✕" },
+    "theme": { "package": "38;5;213", "download": "38;5;75", "install": "38;5;207", "warning": "38;5;75;1", "error": "38;5;39;1", "border": "38;5;69", "status": "38;5;213" }
+  }
+}

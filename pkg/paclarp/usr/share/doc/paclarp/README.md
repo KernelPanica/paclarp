@@ -188,24 +188,3 @@ paclarp --print-default-config
 ```
 
 For Arch Linux package creation and `pacman -U` installation, see [packaging.md](packaging.md).
-
-## Ready-made templates
-
-Two editable presets are included:
-
-- `templates/pink-blue.jsonc`: pink text, blue highlights, emoji progress, and animated heart spinner frames.
-- `templates/midnight.jsonc`: compact cyan/green styling with a Braille spinner and high-contrast status colors.
-
-Try one without replacing your main configuration:
-
-```sh
-paclarp --config ./templates/pink-blue.jsonc -- -Syu
-paclarp --config ./templates/midnight.jsonc -- -Syu
-```
-
-Install one as the default configuration:
-
-```sh
-mkdir -p ~/.config/paclarp
-cp templates/pink-blue.jsonc ~/.config/paclarp/config.jsonc
-```
