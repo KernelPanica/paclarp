@@ -12,6 +12,19 @@ The default file is `~/.config/paclarp/config.jsonc` (or `$XDG_CONFIG_HOME/pacla
 
 Rules are applied in order to each output line; `pattern` is a regular expression and `replacement` uses regex capture references such as `$1`. Set `color` to `always`, `never`, or `auto` and optionally set a rule-level ANSI SGR code (for example `"31;1"`). Progress lines containing `NN%` can be formatted with `progress`; Kitty-compatible frames can be enabled with `kitty.frames`.
 
+Use `text_color` for the base ANSI SGR color of a stream (for example `"37"`). Add ordered `highlights` entries to override it for matching lines:
+
+```jsonc
+"stdout": {
+  "color": "auto",
+  "text_color": "37",
+  "highlights": [
+    { "pattern": "^warning:", "color": "33;1" },
+    { "pattern": "^error:", "color": "31;1" }
+  ]
+}
+```
+
 Example:
 
 ```jsonc
@@ -30,3 +43,15 @@ Example:
 ```
 
 The child process exit code is preserved. Invalid regex rules are ignored so one optional customization cannot prevent pacman from running.
+
+## Terminal UI
+
+The `ui` section accepts `style` (`minimal`, `verbose`, `dashboard`, or `compact`), `verbosity`, global `animation`, animation `fps`, `sound`, custom spinner frames, operation icons, and ANSI SGR theme colors for packages, downloads, installation, warnings, errors, borders, and status text. Existing stream rules remain valid.
+
+paclarp classifies pacman output into transaction, download, installation, hook, completion, and failure events before rendering. Terminal capabilities are detected from TTY state, `TERM`, `SSH_CONNECTION`, and `CI`; Kitty images are emitted only under Kitty and otherwise fall back to configured text progress bars.
+
+The current configuration schema can always be generated with:
+
+```sh
+paclarp --print-default-config
+```
