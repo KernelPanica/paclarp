@@ -1,5 +1,5 @@
 [package]
-name = "pacwrap"
+name = "paclarp"
 version = "0.1.0"
 edition = "2021"
 description = "A configurable JSONC-driven output wrapper for pacman"

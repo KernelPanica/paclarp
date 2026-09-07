@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use std::{fs, io::{self, Read, Write}, path::PathBuf, process::{Command, Stdio}};
 
 const DEFAULT_CONFIG: &str = r##"{
-  // pacwrap passes every argument after `--` to pacman.
+  // paclarp passes every argument after `--` to pacman.
   "pacman": "/usr/bin/pacman",
   "stdout": {
     "prefix": "",
@@ -26,13 +26,13 @@ const DEFAULT_CONFIG: &str = r##"{
 }"##;
 
 #[derive(Parser, Debug)]
-#[command(name = "pacwrap", about = "Configurable pacman output wrapper")]
+#[command(name = "paclarp", about = "Configurable pacman output wrapper")]
 struct Args {
-    /// JSONC configuration file (defaults to ~/.config/pacwrap/config.jsonc)
+    /// JSONC configuration file (defaults to ~/.config/paclarp/config.jsonc)
     #[arg(short, long)] config: Option<PathBuf>,
     /// Print the built-in JSONC schema and exit
     #[arg(long)] print_default_config: bool,
-    /// Print a shell alias that routes pacman through pacwrap
+    /// Print a shell alias that routes pacman through paclarp
     #[arg(long)] print_alias: bool,
     /// Arguments passed to pacman (put them after `--`)
     #[arg(last = true)] pacman_args: Vec<String>,
@@ -83,8 +83,8 @@ impl Default for KittyConfig { fn default() -> Self { Self { enabled: false, fra
 impl Default for Rule { fn default() -> Self { Self { pattern: ".*".into(), replacement: "$0".into(), color: None } } }
 
 fn config_path(cli: Option<PathBuf>) -> Option<PathBuf> {
-    cli.or_else(|| std::env::var_os("XDG_CONFIG_HOME").map(PathBuf::from).map(|p| p.join("pacwrap/config.jsonc")))
-        .or_else(|| std::env::var_os("HOME").map(PathBuf::from).map(|p| p.join(".config/pacwrap/config.jsonc")))
+    cli.or_else(|| std::env::var_os("XDG_CONFIG_HOME").map(PathBuf::from).map(|p| p.join("paclarp/config.jsonc")))
+        .or_else(|| std::env::var_os("HOME").map(PathBuf::from).map(|p| p.join(".config/paclarp/config.jsonc")))
 }
 fn load_config(path: Option<PathBuf>) -> Result<Config, Box<dyn std::error::Error>> {
     let Some(path) = path else { return Ok(Config::default()) };
@@ -98,9 +98,9 @@ fn ensure_config(path: Option<PathBuf>) -> Result<(), Box<dyn std::error::Error>
     if path.exists() { return Ok(()) }
     if let Some(parent) = path.parent() { fs::create_dir_all(parent)?; }
     fs::write(&path, DEFAULT_CONFIG)?;
-    eprintln!("pacwrap: created config at {}", path.display());
-    eprintln!("To use pacwrap as pacman, add this to your shell configuration:");
-    eprintln!("  alias pacman='pacwrap --'");
+    eprintln!("paclarp: created config at {}", path.display());
+    eprintln!("To use paclarp as pacman, add this to your shell configuration:");
+    eprintln!("  alias pacman='paclarp --'");
     Ok(())
 }
 fn ansi(code: &str, value: &str) -> String { if code.is_empty() { value.into() } else { format!("\x1b[{}m{}\x1b[0m", code, value) } }
@@ -139,7 +139,7 @@ fn render(input: &[u8], cfg: &StreamConfig) -> Vec<u8> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     if args.print_default_config { println!("{}", DEFAULT_CONFIG); return Ok(()) }
-    if args.print_alias { println!("alias pacman='pacwrap --'"); return Ok(()) }
+    if args.print_alias { println!("alias pacman='paclarp --'"); return Ok(()) }
     let path = config_path(args.config);
     ensure_config(path.clone())?;
     let cfg = load_config(path)?;
