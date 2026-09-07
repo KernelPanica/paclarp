@@ -3,7 +3,7 @@ name = "paclarp"
 version = "0.1.0"
 edition = "2021"
 description = "A configurable JSONC-driven output wrapper for pacman"
-license = "MIT"
+license = "GPL-3.0-only"
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
